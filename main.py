@@ -1,17 +1,16 @@
-from FileSelector import FileSelector
-from CharacterDetector import CharacterDetector
-from googletrans import Translator
-import re
+from classes.FileSelector import FileSelector
+from classes.CharacterDetector import CharacterDetector
+from classes.Translation import Translation
 
 if __name__ == '__main__':
+    url = "https://script.google.com/macros/s/AKfycbyalI7byYy5rEzcqVb1WUOWyLAH08e5eLGP98eR4saMZ5KSPG8/exec?"
     extensions = ["png", "PNG", "jpg", "jpeg", "JPEG"]
-    translator = Translator()
     cd = CharacterDetector()
     fs = FileSelector("img")
     file_path = fs.get_file_path(extensions)
     txt = cd.get_string(file_path)
-    txt = cd.platic_txt(txt)
-    translated_txt = translator.translate(txt, dest='ja')
-    translated_txt = re.sub(r"Tra.+text=", "", str(translated_txt))
-    translated_txt = re.sub(r", pronu.+", "", str(translated_txt))
+    txt = cd.plastic_txt(txt)
+    txt = cd.edit_txt(txt)
+    ts = Translation(url)
+    translated_txt = ts.get_translated_text(txt)
     print(translated_txt)
