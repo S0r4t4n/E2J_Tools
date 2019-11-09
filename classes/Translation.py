@@ -13,7 +13,6 @@ class Translation:
     def get_translated_text(self, text: str) -> str:
         self.param.append(("text", text))
         self.url += f"{urllib.parse.urlencode(self.param)}"
-        print(self.url)
         try:
             result = urllib.request.urlopen(self.url).read()
             return result.decode('utf-8')
